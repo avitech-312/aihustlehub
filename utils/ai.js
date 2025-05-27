@@ -1,0 +1,1 @@
+export async function generatePost() { /* AI generation logic here */ }
