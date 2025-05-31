@@ -11,7 +11,8 @@
     "react": "latest",
     "react-dom": "latest",
     "gray-matter": "^4.0.3",
-    "react-markdown": "^8.0.3"
+    "remark": "^15.0.1",
+    "remark-html": "^15.0.1"
   }
 }
 
