@@ -1,30 +1,32 @@
+// pages/posts/[slug].js
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import Head from 'next/head';
 import { remark } from 'remark';
 import html from 'remark-html';
+import Layout from '../../components/Layout';
 
-export default function PostPage({ post }) {
+export default function PostPage({ frontmatter, content }) {
   return (
-    <>
+    <Layout>
       <Head>
-        <title>{post.title} | AI Hustle Hub</title>
-        <meta name="description" content={`Read: ${post.title}`} />
+        <title>{frontmatter.title} | AI Hustle Hub</title>
+        <meta name="description" content={frontmatter.excerpt || 'AI-powered blog post'} />
       </Head>
-      <main style={{ padding: '2rem' }}>
-        <h1>{post.title}</h1>
-        <p><em>{post.date}</em></p>
-        <div dangerouslySetInnerHTML={{ __html: post.content }} />
-      </main>
-    </>
+      <article>
+        <h1>{frontmatter.title}</h1>
+        <p><em>{frontmatter.date}</em></p>
+        <div dangerouslySetInnerHTML={{ __html: content }} />
+      </article>
+    </Layout>
   );
 }
 
 export async function getStaticPaths() {
-  const files = fs.readdirSync(path.join('posts'));
+  const postsDir = path.join(process.cwd(), 'posts');
+  const filenames = fs.readdirSync(postsDir);
 
-  const paths = files.map((filename) => ({
+  const paths = filenames.map((filename) => ({
     params: {
       slug: filename.replace('.md', ''),
     },
@@ -36,19 +38,19 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps({ params: { slug } }) {
-  const markdownWithMeta = fs.readFileSync(path.join('posts', slug + '.md'), 'utf-8');
-  const { data: frontmatter, content } = matter(markdownWithMeta);
-  const processedContent = await remark().use(html).process(content);
-  const contentHtml = processedContent.toString();
+export async function getStaticProps({ params }) {
+  const filePath = path.join(process.cwd(), 'posts', `${params.slug}.md`);
+  const fileContent = fs.readFileSync(filePath, 'utf-8');
+
+  const { data: frontmatter, content: markdownContent } = matter(fileContent);
+  const processedContent = await remark().use(html).process(markdownContent);
+  const content = processedContent.toString();
 
   return {
     props: {
-      post: {
-        title: frontmatter.title,
-        date: frontmatter.date,
-        content: contentHtml,
-      },
+      frontmatter,
+      content,
     },
   };
 }
+
