@@ -1,41 +1,24 @@
-// components/Layout.js
 import Head from 'next/head';
-import Link from 'next/link';
 
 export default function Layout({ children }) {
   return (
-    <div className="container">
+    <>
       <Head>
+        <meta name="google-site-verification" content="YOUR_GOOGLE_VERIFICATION_CODE" />
         <title>AI Hustle Hub</title>
-        <meta name="description" content="Explore AI-powered blog content and tools for online income." />
+        <meta name="description" content="AI Hustle Hub: Explore AI tools, tips, and side hustles to grow your income." />
       </Head>
-      <header>
-        <h1>
-          <Link href="/">AI Hustle Hub</Link>
-        </h1>
-      </header>
-      <main>{children}</main>
-      <footer>
-        <p>© 2025 AI Hustle Hub</p>
-        <a href="https://ko-fi.com/aavi31193" target="_blank">Support me on Ko-fi</a>
-      </footer>
-
-      <style jsx>{`
-        .container {
-          max-width: 800px;
-          margin: 0 auto;
-          padding: 2rem;
-        }
-        header {
-          margin-bottom: 2rem;
-          text-align: center;
-        }
-        footer {
-          margin-top: 3rem;
-          text-align: center;
-          font-size: 0.9rem;
-        }
-      `}</style>
-    </div>
+      <div style={{ maxWidth: '768px', margin: '0 auto', padding: '1rem', fontFamily: 'sans-serif' }}>
+        <header>
+          <h1 style={{ textAlign: 'center', fontSize: '2rem', color: '#00FFAA' }}>AI Hustle Hub</h1>
+          <hr />
+        </header>
+        <main>{children}</main>
+        <footer style={{ marginTop: '2rem', textAlign: 'center', fontSize: '0.9rem', color: '#999' }}>
+          © {new Date().getFullYear()} AI Hustle Hub. All rights reserved.
+        </footer>
+      </div>
+    </>
   );
 }
+
