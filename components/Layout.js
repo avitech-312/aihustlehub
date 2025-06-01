@@ -4,7 +4,7 @@ export default function Layout({ children }) {
   return (
     <>
       <Head>
-        <meta name="google-site-verification" content="YOUR_GOOGLE_VERIFICATION_CODE" />
+        <meta name="google-site-verification" content="googlee6bbcca6560d00d9.html" />
         <title>AI Hustle Hub</title>
         <meta name="description" content="AI Hustle Hub: Explore AI tools, tips, and side hustles to grow your income." />
       </Head>
