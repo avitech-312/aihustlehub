@@ -1,10 +1,10 @@
-// pages/posts/[slug].js
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
 import Layout from '../../components/Layout';
+import Head from 'next/head'; // ✅ <---- This is the missing import
 
 export default function PostPage({ frontmatter, content }) {
   return (
